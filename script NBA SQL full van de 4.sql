@@ -1,4 +1,4 @@
-﻿USE [master]
+USE [master]
 GO
 /****** Object:  Database [NigeriaBasketballAssociation]    Script Date: 12/17/2025 8:50:19 AM ******/
 CREATE DATABASE [NigeriaBasketballAssociation]
@@ -471,7 +471,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[HoiDong](
-	[MaHoiDong] [int] IDENTITY(1,1) NOT NULL,
+	[MaHoiDong] [int] NOT NULL,
 	[MaDT] [varchar](20) NOT NULL,
 	[TenNhiemVu] [nvarchar](200) NULL,
 	[NgayDanhGia] [date] NULL,
