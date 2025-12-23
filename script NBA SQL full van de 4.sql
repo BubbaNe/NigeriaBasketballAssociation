@@ -471,7 +471,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[HoiDong](
-	[MaHoiDong] [varchar](20) NOT NULL,
+	[MaHoiDong] [int] IDENTITY(1,1) NOT NULL,
 	[MaDT] [varchar](20) NOT NULL,
 	[TenNhiemVu] [nvarchar](200) NULL,
 	[NgayDanhGia] [date] NULL,
