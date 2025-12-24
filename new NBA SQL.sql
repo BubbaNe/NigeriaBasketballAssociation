@@ -159,7 +159,7 @@ JOIN GiangVien gv
     ON tv.MaCB = gv.MaCB
 GROUP BY tv.MaHoiDong
 HAVING 
-    COUNT(*) >= 5
+    COUNT(*) = 5
     AND SUM(CASE WHEN gv.HocHam LIKE N'PGS%' THEN 1 ELSE 0 END) >= 2
     AND SUM(CASE WHEN gv.ChucVu IN (N'Cục trưởng', N'Phó Cục trưởng') THEN 1 ELSE 0 END) >= 1
     AND SUM(CASE WHEN gv.HocVi = N'Tiến sĩ' THEN 1 ELSE 0 END) >= 1;
