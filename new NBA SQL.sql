@@ -152,16 +152,19 @@ CREATE TABLE ThanhVienHoiDong (
 );
 GO
 CREATE VIEW HoiDongHopLe AS
-SELECT MaHoiDong
+SELECT 
+    tv.MaHoiDong
 FROM ThanhVienHoiDong tv
-JOIN GiangVien gv ON tv.MaCB = gv.MaCB
-GROUP BY MaHoiDong
+JOIN GiangVien gv 
+    ON tv.MaCB = gv.MaCB
+GROUP BY tv.MaHoiDong
 HAVING 
     COUNT(*) >= 5
     AND SUM(CASE WHEN gv.HocHam LIKE N'PGS%' THEN 1 ELSE 0 END) >= 2
     AND SUM(CASE WHEN gv.ChucVu IN (N'Cục trưởng', N'Phó Cục trưởng') THEN 1 ELSE 0 END) >= 1
     AND SUM(CASE WHEN gv.HocVi = N'Tiến sĩ' THEN 1 ELSE 0 END) >= 1;
 GO
+
 
 -- 8. Đánh giá
 CREATE TABLE DanhGiaHoiDong (
@@ -183,14 +186,20 @@ GO
 
 CREATE VIEW KetQuaDanhGia AS
 SELECT 
+    hd.MaHoiDong,
     hd.MaDT,
     hd.TenNhiemVu,
-    COUNT(*) AS TongPhieu,
-    SUM(CASE WHEN dg.KetQua = N'Thông qua' THEN 1 ELSE 0 END) AS SoPhieuThongQua
-FROM DanhGiaHoiDong dg
-JOIN HoiDong hd ON dg.MaHoiDong = hd.MaHoiDong
-GROUP BY hd.MaDT, hd.TenNhiemVu
-HAVING SUM(CASE WHEN dg.KetQua = N'Thông qua' THEN 1 ELSE 0 END) >= 3;
+    COUNT(dg.MaCB) AS TongPhieu,
+    SUM(CASE WHEN dg.KetQua = N'Thông qua' THEN 1 ELSE 0 END) AS SoPhieuThongQua,
+    CASE 
+        WHEN SUM(CASE WHEN dg.KetQua = N'Thông qua' THEN 1 ELSE 0 END) >= 3
+            THEN N'Đạt'
+        ELSE N'Không đạt'
+    END AS KetLuan
+FROM HoiDong hd
+LEFT JOIN DanhGiaHoiDong dg 
+    ON hd.MaHoiDong = dg.MaHoiDong
+GROUP BY hd.MaHoiDong, hd.MaDT, hd.TenNhiemVu;
 GO
 
 -- 9. Giáo trình
@@ -412,4 +421,5 @@ CREATE TABLE DangNhap (
     TenDangNhap VARCHAR(100) NOT NULL UNIQUE,
     MatKhau VARCHAR(255) NOT NULL    --co the hash truoc de tang bao mat
 );
+
 GO
