@@ -469,6 +469,7 @@ CREATE TABLE HoiNghi (
     NhaXuatBan NVARCHAR(200),
     ISBN NVARCHAR(50),
     DOI NVARCHAR(100),
+    NgayToChuc DATE NOT NULL,
     CONSTRAINT FK_HN_CongBo FOREIGN KEY (MaCBKH) REFERENCES CongBoKhoaHoc(MaCBKH)
 );
 
@@ -484,7 +485,8 @@ CREATE TABLE SangChe (
     NgayCap DATE,
     NgayCongBo DATE,
     NgayBatDau DATE,
-    NgayKetThuc DATE
+    NgayKetThuc DATE,
+    SoVanBang NVARCHAR(50)
 );
 
 --17. Tác giả sáng chế
