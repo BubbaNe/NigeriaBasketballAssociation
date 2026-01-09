@@ -116,7 +116,7 @@ CREATE TABLE GiangVien (
 
 -- 2. Đề tài
 CREATE TABLE CapNhiemVu (
-    MaCapNhiemVu VARCHAR(10) PRIMARY KEY,
+    MaCapNhiemVu NVARCHAR(100) PRIMARY KEY,
     TenCapNhiemVu NVARCHAR(100) NOT NULL
 );
 
@@ -133,7 +133,7 @@ CREATE TABLE DeTaiNCKH (
     DonViChuTri NVARCHAR(200),
     ThangDangKy INT CHECK (ThangDangKy BETWEEN 1 AND 12),
     NamDangKy INT CHECK (NamDangKy >= 2000),
-    CapNhiemVu VARCHAR(10) NOT NULL,
+    CapNhiemVu NVARCHAR(100) NOT NULL,
     ThoiGianThucHien INT CHECK (ThoiGianThucHien > 0),
     SoQuyetDinh NVARCHAR(50),
     TongGioKhoaHoc DECIMAL(10,2) CHECK (TongGioKhoaHoc >= 0),
